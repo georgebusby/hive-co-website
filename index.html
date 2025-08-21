@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hive & Co - Community Delivery Services in Oxford</title>
+    <meta name="description" content="Family-run delivery service bringing treats, kindness, and helpful hands to Oxford. Hive & Seek treats on Fridays, Hive & Spoke services on Sundays.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --hive-gold: #F4C430;
+            --hive-dark: #2D3E1F;
+            --hive-green: #4A5D37;
+            --hive-light: #F8FAF6;
+            --hive-grey: #6B7280;
+            --hive-white: #FFFFFF;
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--hive-dark);
+            background: var(--hive-white);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background: var(--hive-white);
+            backdrop-filter: blur(20px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            box-shadow: var(--shadow-soft);
+            border-bottom: 1px solid rgba(77, 93, 55, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background: var(--hive-light);
+            padding: 4px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--hive-dark);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--hive-grey);
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--hive-dark);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--hive-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 140px 0 100px;
+            background: linear-gradient(135deg, var(--hive-light) 0%, var(--hive-white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 40%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(244, 196, 48, 0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(3deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 72px);
+            font-weight: 800;
+            color: var(--hive-dark);
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .hero .subtitle {
+            font-size: 20px;
+            color: var(--hive-grey);
+            margin-bottom: 40px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--hive-gold);
+            color: var(--hive-dark);
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-strong);
+            background: #F8D547;
+        }
+
+        /* Main Content */
+        main {
+            background: var(--hive-white);
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            text-align: center;
+            color: var(--hive-dark);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--hive-grey);
+            text-align: center;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Service Cards */
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .service-card {
+            background: var(--hive-white);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(77, 93, 55, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--hive-gold), var(--hive-green));
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .service-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--hive-light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .service-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--hive-dark);
+            margin-bottom: 4px;
+        }
+
+        .service-tagline {
+            font-size: 16px;
+            color: var(--hive-grey);
+            font-style: italic;
+        }
+
+        .service-schedule {
+            background: var(--hive-light);
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--hive-green);
+            margin-bottom: 24px;
+            display: inline-block;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 15px;
+            color: var(--hive-grey);
+        }
+
+        .service-features li::before {
+            content: '•';
+            color: var(--hive-gold);
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: -2px;
+        }
+
+        /* Partners Section */
+        .partners-section {
+            background: var(--hive-light);
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-top: 50px;
+        }
+
+        .partner-card {
+            background: var(--hive-white);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(77, 93, 55, 0.08);
+        }
+
+        .partner-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .partner-logo {
+            width: 80px;
+            height: 80px;
+            background: var(--hive-light);
+            border-radius: 12px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .partner-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--hive-dark);
+            margin-bottom: 8px;
+        }
+
+        .partner-type {
+            font-size: 14px;
+            color: var(--hive-grey);
+        }
+
+        /* Registration Form */
+        .registration-section {
+            background: var(--hive-white);
+        }
+
+        .form-container {
+            background: var(--hive-light);
+            border-radius: 24px;
+            padding: 48px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--hive-dark);
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid rgba(77, 93, 55, 0.2);
+            border-radius: 12px;
+            font-size: 15px;
+            background: var(--hive-white);
+            color: var(--hive-dark);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--hive-gold);
+            box-shadow: 0 0 0 3px rgba(244, 196, 48, 0.1);
+        }
+
+        .submit-btn {
+            background: var(--hive-gold);
+            color: var(--hive-dark);
+            padding: 18px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 16px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+            background: #F8D547;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            display: none;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--hive-dark);
+            color: var(--hive-white);
+        }
+
+        .contact-section .section-title {
+            color: var(--hive-white);
+        }
+
+        .contact-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 50px;
+        }
+
+        .contact-info h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--hive-gold);
+        }
+
+        .contact-info p {
+            margin-bottom: 16px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .family-story {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 32px;
+            border-radius: 16px;
+            border-left: 4px solid var(--hive-gold);
+        }
+
+        .family-story h3 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: var(--hive-gold);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--hive-dark);
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            padding: 32px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .form-container {
+                padding: 32px 24px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo-container">
+                <div class="logo-img">
+                    <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Bee body -->
+                        <ellipse cx="45" cy="60" rx="20" ry="25" fill="#F4C430" stroke="#2D3E1F" stroke-width="3"/>
+                        <!-- Bee stripes -->
+                        <rect x="30" y="50" width="30" height="4" fill="#2D3E1F"/>
+                        <rect x="30" y="60" width="30" height="4" fill="#2D3E1F"/>
+                        <rect x="30" y="70" width="30" height="4" fill="#2D3E1F"/>
+                        <!-- Wings -->
+                        <ellipse cx="35" cy="45" rx="12" ry="18" fill="#F4C430" stroke="#2D3E1F" stroke-width="2" opacity="0.8"/>
+                        <ellipse cx="55" cy="45" rx="12" ry="18" fill="#F4C430" stroke="#2D3E1F" stroke-width="2" opacity="0.8"/>
+                        <!-- Head -->
+                        <circle cx="45" cy="35" r="12" fill="#2D3E1F"/>
+                        <circle cx="48" cy="32" r="2" fill="#F4C430"/>
+                        <!-- Antennae -->
+                        <line x1="40" y1="25" x2="38" y2="20" stroke="#2D3E1F" stroke-width="2"/>
+                        <line x1="50" y1="25" x2="52" y2="20" stroke="#2D3E1F" stroke-width="2"/>
+                        <circle cx="38" cy="20" r="2" fill="#2D3E1F"/>
+                        <circle cx="52" cy="20" r="2" fill="#2D3E1F"/>
+                        <!-- Bicycle -->
+                        <!-- Wheels -->
+                        <circle cx="20" cy="75" r="8" fill="none" stroke="#2D3E1F" stroke-width="3"/>
+                        <circle cx="70" cy="75" r="8" fill="none" stroke="#2D3E1F" stroke-width="3"/>
+                        <!-- Frame -->
+                        <line x1="28" y1="75" x2="45" y2="55" stroke="#2D3E1F" stroke-width="3"/>
+                        <line x1="45" y1="55" x2="62" y2="75" stroke="#2D3E1F" stroke-width="3"/>
+                        <line x1="45" y1="55" x2="45" y2="75" stroke="#2D3E1F" stroke-width="3"/>
+                        <!-- Handlebars -->
+                        <line x1="40" y1="50" x2="50" y2="50" stroke="#2D3E1F" stroke-width="2"/>
+                        <line x1="45" y1="50" x2="45" y2="55" stroke="#2D3E1F" stroke-width="2"/>
+                    </svg>
+                </div>
+                <span class="logo-text">HIVE & CO.</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#partners">Partners</a></li>
+                <li><a href="#join">Join Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content container">
+            <h1>Community Delivery<br>with Heart</h1>
+            <p class="subtitle">A family-run service bringing treats, kindness, and helping hands to Oxford neighbourhoods. Teaching entrepreneurship while serving our community.</p>
+            <a href="#services" class="cta-button">
+                <span>Discover Our Services</span>
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <main>
+        <section id="services" class="section">
+            <div class="container">
+                <h2 class="section-title">Our Services</h2>
+                <p class="section-subtitle">Two seasonal service arms designed to teach our children about business while serving our Oxford community with care and dedication.</p>
+                
+                <div class="services-grid">
+                    <!-- Hive & Seek -->
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">🍯</div>
+                            <div>
+                                <div class="service-title">Hive & Seek</div>
+                                <div class="service-tagline">"Find something sweet at the end of the week"</div>
+                            </div>
+                        </div>
+                        <div class="service-schedule">Every Friday After School</div>
+                        <ul class="service-features">
+                            <li>Homemade snacks and canapés using Grandma's special recipes</li>
+                            <li>Sweet surprises, thoughtful notes, and friendly tokens</li>
+                            <li>Custom requests and pre-booked weekly selections</li>
+                            <li>Delivered fresh by bicycle around the neighbourhood</li>
+                            <li>Perfect for treating yourself or surprising loved ones</li>
+                        </ul>
+                    </div>
+
+                    <!-- Hive & Spoke -->
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">🚲</div>
+                            <div>
+                                <div class="service-title">Hive & Spoke</div>
+                                <div class="service-tagline">"Where wheels meet goodwill"</div>
+                            </div>
+                        </div>
+                        <div class="service-schedule">Every Sunday</div>
+                        <ul class="service-features">
+                            <li>Fresh bread and bakery deliveries from local partners</li>
+                            <li>Takeaway collections and neighbourhood deliveries</li>
+                            <li>Dog walking services for busy families</li>
+                            <li>Post runs, errands, and helpful neighbourhood tasks</li>
+                            <li>Building connections and community spirit</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="partners" class="section partners-section">
+            <div class="container">
+                <h2 class="section-title">Our Partners</h2>
+                <p class="section-subtitle">We're proud to work with these amazing local Oxford businesses, delivering their fantastic products to your door.</p>
+                
+                <div class="partners-grid">
+                    <div class="partner-card">
+                        <div class="partner-logo">🥖</div>
+                        <div class="partner-name">Local Bakery</div>
+                        <div class="partner-type">Fresh Bread & Pastries</div>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-logo">☕</div>
+                        <div class="partner-name">Neighbourhood Café</div>
+                        <div class="partner-type">Coffee & Light Meals</div>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-logo">🌱</div>
+                        <div class="partner-name">Farm Shop</div>
+                        <div class="partner-type">Organic Produce</div>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-logo">🍕</div>
+                        <div class="partner-name">Pizza Place</div>
+                        <div class="partner-type">Takeaway Delivery</div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <p style="color: var(--hive-grey); font-size: 16px;">
+                        <strong>Local Business Owner?</strong> We'd love to partner with you! 
+                        <a href="#contact" style="color: var(--hive-green); text-decoration: none; font-weight: 600;">Get in touch →</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="join" class="section registration-section">
+            <div class="container">
+                <h2 class="section-title">Join Our Community</h2>
+                <p class="section-subtitle">Register to receive sweet Friday treats and helpful Sunday services. We'll keep you updated on our weekly offerings and special surprises.</p>
+                
+                <div class="form-container">
+                    <div id="successMessage" class="success-message">
+                        🐝 Welcome to the Hive family! We'll buzz by with more details about your weekly treats and services.
+                    </div>
+                    
+                    <form id="registrationForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="postcode">Postcode *</label>
+                                <input type="text" id="postcode" name="postcode" placeholder="OX1 1AA" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">Full Address *</label>
+                            <input type="text" id="address" name="address" placeholder="Street address, Oxford, UK" required>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="serviceType">Services you're interested in</label>
+                                <select id="serviceType" name="serviceType">
+                                    <option value="both">Both Hive & Seek + Hive & Spoke</option>
+                                    <option value="seek">Hive & Seek (Friday Treats) only</option>
+                                    <option value="spoke">Hive & Spoke (Sunday Services) only</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="delivery">Preferred delivery time</label>
+                                <select id="delivery" name="delivery">
+                                    <option value="afternoon">Afternoon (2-5 PM)</option>
+                                    <option value="evening">Early evening (5-7 PM)</option>
+                                    <option value="flexible">Flexible timing</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dietary">Dietary requirements or preferences</label>
+                            <input type="text" id="dietary" name="dietary" placeholder="Allergies, vegan, gluten-free, etc. (optional)">
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Join the Hive! 🐝</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section contact-section">
+            <div class="container">
+                <h2 class="section-title">Get in Touch</h2>
+                <p class="section-subtitle">Ready to join our buzzing community? Have questions about our services? We'd love to hear from you!</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>Contact Details</h3>
+                        <p><strong>📧 Email:</strong> hello@hiveandco.co.uk</p>
+                        <p><strong>📍 Service Area:</strong> Oxford, UK</p>
+                        <p><strong>🚴 Hive & Seek:</strong> Every Friday after school</p>
+                        <p><strong>🚲 Hive & Spoke:</strong> Every Sunday</p>
+                        <p><strong>🌐 Website:</strong> hiveandco.co.uk</p>
+                        
+                        <h3 style="margin-top: 32px;">Service Areas</h3>
+                        <p>We currently serve Oxford city center and surrounding areas including Headington, Cowley, Summertown, Jericho, and nearby neighbourhoods.</p>
+                    </div>
+                    
+                    <div class="family-story">
+                        <h3>The Busby Family Hive</h3>
+                        <p>Hive & Co is run by George Busby and his four children (ages 13, 11, 7, and 5). This micro-business is designed to teach the kids about entrepreneurship, responsibility, and community service while providing valuable services to our Oxford neighbours.</p>
+                        <p>Every delivery is a chance to build connections, spread kindness, and show that business can be both profitable and purposeful. We're not just delivering products – we're delivering community spirit, one bicycle ride at a time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Hive & Co. All rights reserved. | Family-run delivery services in Oxford, UK</p>
+        </div>
+    </footer>
+
+    <script>
+        // User registration data storage (in-memory for demo)
+        let registeredUsers = [];
+
+        // Form submission handler
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                postcode: document.getElementById('postcode').value,
+                serviceType: document.getElementById('serviceType').value,
+                delivery: document.getElementById('delivery').value,
+                dietary: document.getElementById('dietary').value,
+                registrationDate: new Date().toISOString(),
+                userId: 'hive_' + Date.now() // Simple ID generation
+            };
+            
+            // Store user data (in real implementation, this would go to a database)
+            registeredUsers.push(formData);
+            
+            // Show success message
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Reset form
+            this.reset();
+            
+            // Scroll to success message
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+            
+            // Log user data (for development purposes)
+            console.log('New Hive member registered:', formData);
+            console.log('Total Hive community members:', registeredUsers.length);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start',
+                        inline: 'nearest'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle (for future expansion)
+        const mobileMenuBtn = document.createElement('button');
+        mobileMenuBtn.innerHTML = '☰';
+        mobileMenuBtn.style.cssText = `
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--hive-dark);
+            cursor: pointer;
+        `;
+
+        // Add mobile menu styles
+        const mobileStyles = document.createElement('style');
+        mobileStyles.textContent = `
+            @media (max-width: 768px) {
+                .mobile-menu-btn {
+                    display: block !important;
+                }
+            }
+        `;
+        document.head.appendChild(mobileStyles);
+
+        // Helper functions for app integration
+        function getAllHiveMembers() {
+            return registeredUsers;
+        }
+
+        function findMemberByEmail(email) {
+            return registeredUsers.find(user => user.email.toLowerCase() === email.toLowerCase());
+        }
+
+        function getMembersByService(serviceType) {
+            return registeredUsers.filter(user => 
+                user.serviceType === serviceType || user.serviceType === 'both'
+            );
+        }
+
+        function exportMemberData() {
+            return JSON.stringify(registeredUsers, null, 2);
+        }
+
+        // Add some visual enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add intersection observer for scroll animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Apply fade-in animation to sections
+            document.querySelectorAll('.service-card, .partner-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+
+        // Add loading states for better UX
+        function showLoading(button) {
+            const originalText = button.textContent;
+            button.textContent = 'Joining the Hive... 🐝';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.disabled = false;
+            }, 2000);
+        }
+
+        // Enhanced form submission with loading state
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('.submit-btn');
+            showLoading(submitBtn);
+            
+            // Simulate processing delay
+            setTimeout(() => {
+                // Previous form handling code would go here
+                const formData = {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    address: document.getElementById('address').value,
+                    postcode: document.getElementById('postcode').value,
+                    serviceType: document.getElementById('serviceType').value,
+                    delivery: document.getElementById('delivery').value,
+                    dietary: document.getElementById('dietary').value,
+                    registrationDate: new Date().toISOString(),
+                    userId: 'hive_' + Date.now()
+                };
+                
+                registeredUsers.push(formData);
+                document.getElementById('successMessage').style.display = 'block';
+                this.reset();
+                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
