@@ -981,6 +981,8 @@
 
         // Enhanced form submission with Netlify Forms
         document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            console.log('Form submission started');
+            
             const submitBtn = this.querySelector('.submit-btn');
             const originalText = submitBtn.textContent;
             
@@ -988,16 +990,15 @@
             submitBtn.textContent = 'Joining the Hive... 🐝';
             submitBtn.disabled = true;
             
-            // Let the form submit naturally to Netlify
-            // Remove any e.preventDefault() calls
+            // Debug: Log form data before submission
+            const formData = new FormData(this);
+            console.log('Form data being submitted:');
+            for (let [key, value] of formData.entries()) {
+                console.log(key + ': ' + value);
+            }
             
-            // Set a timeout to re-enable button if submission fails
-            setTimeout(() => {
-                if (submitBtn.disabled) {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                }
-            }, 5000);
+            // Let the form submit naturally to Netlify
+            // No e.preventDefault() - let it submit normally
         });
     </script>
 </body>
