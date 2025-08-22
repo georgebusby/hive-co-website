@@ -604,7 +604,6 @@
         </div>
     </section>
 
-   
     <main>
         <section id="services" class="section">
             <div class="container">
@@ -700,7 +699,7 @@
                         🐝 Welcome to the Hive family! We'll buzz by with more details about your weekly treats and services.
                     </div>
                     
-                    <form id="registrationForm" name="hive-registrations" method="POST" netlify netlify-honeypot="bot-field">
+                    <form id="registrationForm" name="hive-registrations" method="POST" data-netlify="true" netlify-honeypot="bot-field">
                         <!-- Hidden bot field for spam protection -->
                         <p style="display: none;">
                             <label>Don't fill this out if you're human: <input name="bot-field" /></label>
@@ -708,9 +707,8 @@
                         
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="firstName">First Name *
+                                <label for="firstName">First Name *</label>
                                 <input type="text" id="firstName" name="firstName" required>
-                                </label>
                             </div>
                             <div class="form-group">
                                 <label for="lastName">Last Name *</label>
@@ -764,6 +762,16 @@
                         </div>
                         
                         <button type="submit" class="submit-btn">Join the Hive! 🐝</button>
+                        
+                        <!-- DEBUG: Simple version for testing -->
+                        <div style="margin-top: 40px; padding: 20px; background: #f0f0f0; border-radius: 8px;">
+                            <h4>🐛 Debug Form (Remove this after testing)</h4>
+                            <form name="hive-debug" netlify>
+                                <input type="text" name="name" placeholder="Your name" required style="margin: 5px; padding: 8px;" />
+                                <input type="email" name="email" placeholder="Your email" required style="margin: 5px; padding: 8px;" />
+                                <button type="submit" style="margin: 5px; padding: 8px 16px;">Test Submit</button>
+                            </form>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -777,11 +785,11 @@
                 <div class="contact-grid">
                     <div class="contact-info">
                         <h3>Contact Details</h3>
-                        <p><strong>📧 Email:</strong> hello@hiveandco.org</p>
+                        <p><strong>📧 Email:</strong> hello@hiveandco.co.uk</p>
                         <p><strong>📍 Service Area:</strong> Oxford, UK</p>
                         <p><strong>🚴 Hive & Seek:</strong> Every Friday after school</p>
                         <p><strong>🚲 Hive & Spoke:</strong> Every Sunday</p>
-                        <p><strong>🌐 Website:</strong> hiveandco.org</p>
+                        <p><strong>🌐 Website:</strong> hiveandco.co.uk</p>
                         
                         <h3 style="margin-top: 32px;">Service Areas</h3>
                         <p>We currently serve Oxford city center and surrounding areas including Headington, Cowley, Summertown, Jericho, and nearby neighbourhoods.</p>
@@ -789,7 +797,7 @@
                     
                     <div class="family-story">
                         <h3>The Busby Family Hive</h3>
-                        <p>Hive & Co is a micro-business designed to teach the kids about entrepreneurship, responsibility, and community service while providing valuable services to our Oxford neighbours.</p>
+                        <p>Hive & Co is run by George Busby and his four children (ages 13, 11, 7, and 5). This micro-business is designed to teach the kids about entrepreneurship, responsibility, and community service while providing valuable services to our Oxford neighbours.</p>
                         <p>Every delivery is a chance to build connections, spread kindness, and show that business can be both profitable and purposeful. We're not just delivering products – we're delivering community spirit, one bicycle ride at a time.</p>
                     </div>
                 </div>
@@ -802,6 +810,28 @@
             <p>&copy; 2025 Hive & Co. All rights reserved. | Family-run delivery services in Oxford, UK</p>
         </div>
     </footer>
+
+    <!-- Hidden form for Netlify detection -->
+    <form name="hive-registrations" netlify netlify-honeypot="bot-field" hidden>
+        <input type="text" name="firstName" />
+        <input type="text" name="lastName" />
+        <input type="email" name="email" />
+        <input type="tel" name="phone" />
+        <input type="text" name="address" />
+        <input type="text" name="postcode" />
+        <select name="serviceType">
+            <option value="both">Both</option>
+            <option value="seek">Seek</option>
+            <option value="spoke">Spoke</option>
+        </select>
+        <select name="delivery">
+            <option value="afternoon">Afternoon</option>
+            <option value="evening">Evening</option>
+            <option value="flexible">Flexible</option>
+        </select>
+        <input type="text" name="dietary" />
+        <input type="text" name="bot-field" />
+    </form>
 
     <script>
         // User registration data storage (now handled by Netlify Forms)
@@ -951,7 +981,6 @@
 
         // Enhanced form submission with Netlify Forms
         document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            // Don't prevent default - let Netlify handle the submission
             const submitBtn = this.querySelector('.submit-btn');
             const originalText = submitBtn.textContent;
             
@@ -959,20 +988,16 @@
             submitBtn.textContent = 'Joining the Hive... 🐝';
             submitBtn.disabled = true;
             
-            // Note: Netlify will handle the actual form submission
-            // The page will either redirect to a success page or stay here
+            // Let the form submit naturally to Netlify
+            // Remove any e.preventDefault() calls
             
-            // Add some user feedback
+            // Set a timeout to re-enable button if submission fails
             setTimeout(() => {
-                // If we're still on the same page (no redirect), show success message
-                if (!document.hidden) {
-                    document.getElementById('successMessage').style.display = 'block';
-                    document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
-                    this.reset();
+                if (submitBtn.disabled) {
                     submitBtn.textContent = originalText;
                     submitBtn.disabled = false;
                 }
-            }, 1000);
+            }, 5000);
         });
     </script>
 </body>
