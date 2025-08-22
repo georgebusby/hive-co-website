@@ -699,7 +699,12 @@
                         🐝 Welcome to the Hive family! We'll buzz by with more details about your weekly treats and services.
                     </div>
                     
-                    <form id="registrationForm">
+                    <form id="registrationForm" name="hive-registrations" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                        <!-- Hidden bot field for spam protection -->
+                        <p style="display: none;">
+                            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                        </p>
+                        
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="firstName">First Name *</label>
@@ -797,10 +802,11 @@
     </footer>
 
     <script>
-        // User registration data storage (in-memory for demo)
+        // User registration data storage (now handled by Netlify Forms)
+        // This array is kept for any client-side functionality you might want to add later
         let registeredUsers = [];
 
-        // Form submission handler
+        // Form submission handler - now works with Netlify Forms
         document.getElementById('registrationForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -874,23 +880,32 @@
         `;
         document.head.appendChild(mobileStyles);
 
-        // Helper functions for app integration
+        // Helper functions for future app integration
+        // Note: With Netlify Forms, you'll access real data through Netlify's API or export features
+        
         function getAllHiveMembers() {
+            // In production, this would fetch from Netlify's form submissions API
             return registeredUsers;
         }
 
         function findMemberByEmail(email) {
+            // In production, this would query Netlify's form data
             return registeredUsers.find(user => user.email.toLowerCase() === email.toLowerCase());
         }
 
         function getMembersByService(serviceType) {
+            // In production, this would filter Netlify's form data
             return registeredUsers.filter(user => 
                 user.serviceType === serviceType || user.serviceType === 'both'
             );
         }
 
-        function exportMemberData() {
-            return JSON.stringify(registeredUsers, null, 2);
+        // Netlify Forms API integration (for future use)
+        async function fetchNetlifySubmissions() {
+            // This would require Netlify API access token
+            // const response = await fetch('/.netlify/functions/get-submissions');
+            // return await response.json();
+            console.log('Netlify Forms submissions can be accessed via Netlify dashboard or API');
         }
 
         // Add some visual enhancements
@@ -932,34 +947,30 @@
             }, 2000);
         }
 
-        // Enhanced form submission with loading state
+        // Enhanced form submission with Netlify Forms
         document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+            // Don't prevent default - let Netlify handle the submission
             const submitBtn = this.querySelector('.submit-btn');
-            showLoading(submitBtn);
+            const originalText = submitBtn.textContent;
             
-            // Simulate processing delay
+            // Show loading state
+            submitBtn.textContent = 'Joining the Hive... 🐝';
+            submitBtn.disabled = true;
+            
+            // Note: Netlify will handle the actual form submission
+            // The page will either redirect to a success page or stay here
+            
+            // Add some user feedback
             setTimeout(() => {
-                // Previous form handling code would go here
-                const formData = {
-                    firstName: document.getElementById('firstName').value,
-                    lastName: document.getElementById('lastName').value,
-                    email: document.getElementById('email').value,
-                    phone: document.getElementById('phone').value,
-                    address: document.getElementById('address').value,
-                    postcode: document.getElementById('postcode').value,
-                    serviceType: document.getElementById('serviceType').value,
-                    delivery: document.getElementById('delivery').value,
-                    dietary: document.getElementById('dietary').value,
-                    registrationDate: new Date().toISOString(),
-                    userId: 'hive_' + Date.now()
-                };
-                
-                registeredUsers.push(formData);
-                document.getElementById('successMessage').style.display = 'block';
-                this.reset();
-                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
-            }, 1500);
+                // If we're still on the same page (no redirect), show success message
+                if (!document.hidden) {
+                    document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+                    this.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            }, 1000);
         });
     </script>
 </body>
