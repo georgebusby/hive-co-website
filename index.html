@@ -507,6 +507,33 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* Debug Section */
+        .debug-section {
+            background: #f8f9fa;
+            border: 2px dashed #6c757d;
+            margin: 40px 0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .debug-section h3 {
+            color: #dc3545;
+            margin-bottom: 16px;
+            font-size: 18px;
+        }
+
+        .debug-section p {
+            margin-bottom: 12px;
+            color: #495057;
+        }
+
+        .debug-section code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
@@ -694,12 +721,23 @@
                 <h2 class="section-title">Join Our Community</h2>
                 <p class="section-subtitle">Register to receive sweet Friday treats and helpful Sunday services. We'll keep you updated on our weekly offerings and special surprises.</p>
                 
+                <!-- DEBUG SECTION - Remove after testing -->
+                <div class="debug-section">
+                    <h3>🐛 Netlify Forms Debug Checklist</h3>
+                    <p><strong>1. Form Detection:</strong> Make sure you have deployed to Netlify and the build process completed successfully.</p>
+                    <p><strong>2. Check Build Logs:</strong> Look for "Forms detected" messages in your Netlify deploy logs.</p>
+                    <p><strong>3. Netlify Dashboard:</strong> Go to Site settings > Forms to see if your forms are detected.</p>
+                    <p><strong>4. Form Name:</strong> This form is named <code>hive-registrations</code></p>
+                    <p><strong>5. Test Action:</strong> Submit the form and check if it redirects to a success page.</p>
+                </div>
+                
                 <div class="form-container">
                     <div id="successMessage" class="success-message">
-                        🐝 Welcome to the Hive family! We'll buzz by with more details about your weekly treats and services.
+                        🎉 Welcome to the Hive family! We'll buzz by with more details about your weekly treats and services.
                     </div>
                     
-                    <form id="registrationForm" name="hive-registrations" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <!-- MAIN FORM - Fixed for Netlify -->
+                    <form name="hive-registrations" method="POST" data-netlify="true" netlify-honeypot="bot-field">
                         <!-- Hidden bot field for spam protection -->
                         <p style="display: none;">
                             <label>Don't fill this out if you're human: <input name="bot-field" /></label>
@@ -762,17 +800,18 @@
                         </div>
                         
                         <button type="submit" class="submit-btn">Join the Hive! 🐝</button>
-                        
-                        <!-- DEBUG: Simple version for testing -->
-                        <div style="margin-top: 40px; padding: 20px; background: #f0f0f0; border-radius: 8px;">
-                            <h4>🐛 Debug Form (Remove this after testing)</h4>
-                            <form name="hive-debug" netlify>
-                                <input type="text" name="name" placeholder="Your name" required style="margin: 5px; padding: 8px;" />
-                                <input type="email" name="email" placeholder="Your email" required style="margin: 5px; padding: 8px;" />
-                                <button type="submit" style="margin: 5px; padding: 8px 16px;">Test Submit</button>
-                            </form>
-                        </div>
                     </form>
+                    
+                    <!-- SIMPLE TEST FORM -->
+                    <div style="margin-top: 40px; padding: 20px; background: #e8f5e8; border: 2px solid #4caf50; border-radius: 8px;">
+                        <h4>🧪 Simple Test Form (Remove after testing)</h4>
+                        <p>Use this simple form first to test if Netlify Forms is working:</p>
+                        <form name="hive-test" method="POST" data-netlify="true">
+                            <input type="text" name="test-name" placeholder="Your name" required style="margin: 5px; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" />
+                            <input type="email" name="test-email" placeholder="Your email" required style="margin: 5px; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" />
+                            <button type="submit" style="margin: 5px; padding: 8px 16px; background: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer;">Test Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
@@ -811,67 +850,54 @@
         </div>
     </footer>
 
-    <!-- Hidden form for Netlify detection -->
-    <form name="hive-registrations" data-netlify="true" netlify-honeypot="bot-field" method="POST" hidden>
-        <input type="text" name="firstName" />
-        <input type="text" name="lastName" />
-        <input type="email" name="email" />
-        <input type="tel" name="phone" />
-        <input type="text" name="address" />
-        <input type="text" name="postcode" />
-        <select name="serviceType">
-            <option value="both">Both</option>
-            <option value="seek">Seek</option>
-            <option value="spoke">Spoke</option>
-        </select>
-        <select name="delivery">
-            <option value="afternoon">Afternoon</option>
-            <option value="evening">Evening</option>
-            <option value="flexible">Flexible</option>
-        </select>
-        <input type="text" name="dietary" />
-        <input type="text" name="bot-field" />
-    </form>
-
     <script>
-        // User registration data storage (now handled by Netlify Forms)
-        // This array is kept for any client-side functionality you might want to add later
-        let registeredUsers = [];
+        // Debug logging for Netlify Forms
+        console.log('🐛 Netlify Forms Debug Mode Active');
+        
+        // Check if we're on Netlify
+        if (window.location.hostname.includes('netlify')) {
+            console.log('✅ Running on Netlify domain');
+        } else {
+            console.log('⚠️ Not on Netlify domain - forms may not work locally');
+        }
 
-        // Form submission handler - now works with Netlify Forms
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Enhanced form submission handler with better debugging
+        document.querySelector('form[name="hive-registrations"]').addEventListener('submit', function(e) {
+            console.log('🚀 Form submission started');
             
-            // Get form data
-            const formData = {
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                address: document.getElementById('address').value,
-                postcode: document.getElementById('postcode').value,
-                serviceType: document.getElementById('serviceType').value,
-                delivery: document.getElementById('delivery').value,
-                dietary: document.getElementById('dietary').value,
-                registrationDate: new Date().toISOString(),
-                userId: 'hive_' + Date.now() // Simple ID generation
-            };
+            // Log all form data for debugging
+            const formData = new FormData(this);
+            console.log('📋 Form data being submitted:');
+            for (let [key, value] of formData.entries()) {
+                console.log(`  ${key}: ${value}`);
+            }
             
-            // Store user data (in real implementation, this would go to a database)
-            registeredUsers.push(formData);
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
             
-            // Show success message
-            document.getElementById('successMessage').style.display = 'block';
+            // Show loading state
+            submitBtn.textContent = 'Joining the Hive... 🐝';
+            submitBtn.disabled = true;
             
-            // Reset form
-            this.reset();
+            // For debugging - reset button after delay
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 3000);
             
-            // Scroll to success message
-            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+            // Let form submit naturally to Netlify (don't preventDefault)
+            console.log('📤 Form submitted to Netlify');
+        });
+
+        // Test form handler
+        document.querySelector('form[name="hive-test"]').addEventListener('submit', function(e) {
+            console.log('🧪 Test form submitted');
             
-            // Log user data (for development purposes)
-            console.log('New Hive member registered:', formData);
-            console.log('Total Hive community members:', registeredUsers.length);
+            const formData = new FormData(this);
+            console.log('Test form data:');
+            for (let [key, value] of formData.entries()) {
+                console.log(`  ${key}: ${value}`);
+            }
         });
 
         // Smooth scrolling for navigation links
@@ -889,117 +915,51 @@
             });
         });
 
-        // Mobile menu toggle (for future expansion)
-        const mobileMenuBtn = document.createElement('button');
-        mobileMenuBtn.innerHTML = '☰';
-        mobileMenuBtn.style.cssText = `
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: var(--hive-dark);
-            cursor: pointer;
-        `;
-
-        // Add mobile menu styles
-        const mobileStyles = document.createElement('style');
-        mobileStyles.textContent = `
-            @media (max-width: 768px) {
-                .mobile-menu-btn {
-                    display: block !important;
-                }
-            }
-        `;
-        document.head.appendChild(mobileStyles);
-
-        // Helper functions for future app integration
-        // Note: With Netlify Forms, you'll access real data through Netlify's API or export features
-        
-        function getAllHiveMembers() {
-            // In production, this would fetch from Netlify's form submissions API
-            return registeredUsers;
-        }
-
-        function findMemberByEmail(email) {
-            // In production, this would query Netlify's form data
-            return registeredUsers.find(user => user.email.toLowerCase() === email.toLowerCase());
-        }
-
-        function getMembersByService(serviceType) {
-            // In production, this would filter Netlify's form data
-            return registeredUsers.filter(user => 
-                user.serviceType === serviceType || user.serviceType === 'both'
-            );
-        }
-
-        // Netlify Forms API integration (for future use)
-        async function fetchNetlifySubmissions() {
-            // This would require Netlify API access token
-            // const response = await fetch('/.netlify/functions/get-submissions');
-            // return await response.json();
-            console.log('Netlify Forms submissions can be accessed via Netlify dashboard or API');
-        }
-
-        // Add some visual enhancements
+        // Debug: Check for Netlify Forms detection
         document.addEventListener('DOMContentLoaded', function() {
-            // Add intersection observer for scroll animations
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
-
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-
-            // Apply fade-in animation to sections
-            document.querySelectorAll('.service-card, .partner-card').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
+            console.log('🔍 Checking for Netlify Forms...');
+            
+            const forms = document.querySelectorAll('form[data-netlify]');
+            console.log(`📝 Found ${forms.length} forms with data-netlify attribute`);
+            
+            forms.forEach((form, index) => {
+                console.log(`Form ${index + 1}:`);
+                console.log(`  Name: ${form.getAttribute('name')}`);
+                console.log(`  Method: ${form.getAttribute('method')}`);
+                console.log(`  Action: ${form.getAttribute('action') || 'default'}`);
+                console.log(`  Fields: ${form.querySelectorAll('input, select, textarea').length}`);
             });
+            
+            // Check if we're in Netlify's build environment
+            if (typeof window !== 'undefined') {
+                console.log('🌐 Running in browser');
+                console.log('🏠 Hostname:', window.location.hostname);
+                console.log('📄 Pathname:', window.location.pathname);
+            }
         });
 
-        // Add loading states for better UX
-        function showLoading(button) {
-            const originalText = button.textContent;
-            button.textContent = 'Joining the Hive... 🐝';
-            button.disabled = true;
+        // Netlify Forms debugging helper
+        function debugNetlifyForms() {
+            console.log('🔧 Netlify Forms Debug Information:');
+            console.log('1. ✅ Forms should be detected during Netlify build process');
+            console.log('2. ✅ Check your deploy logs for "Forms detected" messages');
+            console.log('3. ✅ Visit Site Settings > Forms in your Netlify dashboard');
+            console.log('4. ✅ Form submissions appear in the Forms tab after submission');
+            console.log('5. ✅ Test the simple form first, then the complex one');
             
-            setTimeout(() => {
-                button.textContent = originalText;
-                button.disabled = false;
-            }, 2000);
+            // Check form setup
+            const mainForm = document.querySelector('form[name="hive-registrations"]');
+            const testForm = document.querySelector('form[name="hive-test"]');
+            
+            console.log('📋 Form Status:');
+            console.log(`  Main form found: ${!!mainForm}`);
+            console.log(`  Test form found: ${!!testForm}`);
+            console.log(`  Main form has data-netlify: ${!!mainForm?.hasAttribute('data-netlify')}`);
+            console.log(`  Test form has data-netlify: ${!!testForm?.hasAttribute('data-netlify')}`);
         }
 
-        // Enhanced form submission with Netlify Forms
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            console.log('Form submission started');
-            
-            const submitBtn = this.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            
-            // Show loading state
-            submitBtn.textContent = 'Joining the Hive... 🐝';
-            submitBtn.disabled = true;
-            
-            // Debug: Log form data before submission
-            const formData = new FormData(this);
-            console.log('Form data being submitted:');
-            for (let [key, value] of formData.entries()) {
-                console.log(key + ': ' + value);
-            }
-            
-            // Let the form submit naturally to Netlify
-            // No e.preventDefault() - let it submit normally
-        });
+        // Run debug on page load
+        setTimeout(debugNetlifyForms, 1000);
     </script>
 </body>
 </html>
