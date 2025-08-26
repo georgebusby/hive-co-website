@@ -441,6 +441,12 @@
             background: #F8D547;
         }
 
+        .submit-btn:disabled {
+            opacity: 0.7;
+            transform: none;
+            cursor: not-allowed;
+        }
+
         .success-message {
             background: linear-gradient(135deg, #10B981, #059669);
             color: white;
@@ -505,33 +511,6 @@
             text-align: center;
             padding: 32px 0;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Debug Section */
-        .debug-section {
-            background: #f8f9fa;
-            border: 2px dashed #6c757d;
-            margin: 40px 0;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .debug-section h3 {
-            color: #dc3545;
-            margin-bottom: 16px;
-            font-size: 18px;
-        }
-
-        .debug-section p {
-            margin-bottom: 12px;
-            color: #495057;
-        }
-
-        .debug-section code {
-            background: #e9ecef;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: monospace;
         }
 
         /* Responsive Design */
@@ -721,22 +700,11 @@
                 <h2 class="section-title">Join Our Community</h2>
                 <p class="section-subtitle">Register to receive sweet Friday treats and helpful Sunday services. We'll keep you updated on our weekly offerings and special surprises.</p>
                 
-                <!-- DEBUG SECTION - Remove after testing -->
-                <div class="debug-section">
-                    <h3>🐛 Netlify Forms Debug Checklist</h3>
-                    <p><strong>1. Form Detection:</strong> Make sure you have deployed to Netlify and the build process completed successfully.</p>
-                    <p><strong>2. Check Build Logs:</strong> Look for "Forms detected" messages in your Netlify deploy logs.</p>
-                    <p><strong>3. Netlify Dashboard:</strong> Go to Site settings > Forms to see if your forms are detected.</p>
-                    <p><strong>4. Form Name:</strong> This form is named <code>hive-registrations</code></p>
-                    <p><strong>5. Test Action:</strong> Submit the form and check if it redirects to a success page.</p>
-                </div>
-                
                 <div class="form-container">
                     <div id="successMessage" class="success-message">
                         🎉 Welcome to the Hive family! We'll buzz by with more details about your weekly treats and services.
                     </div>
                     
-                    <!-- MAIN FORM - Fixed for Netlify -->
                     <form name="hive-registrations" method="POST" data-netlify="true" netlify-honeypot="bot-field">
                         <!-- Hidden bot field for spam protection -->
                         <p style="display: none;">
@@ -801,17 +769,6 @@
                         
                         <button type="submit" class="submit-btn">Join the Hive! 🐝</button>
                     </form>
-                    
-                    <!-- SIMPLE TEST FORM -->
-                    <div style="margin-top: 40px; padding: 20px; background: #e8f5e8; border: 2px solid #4caf50; border-radius: 8px;">
-                        <h4>🧪 Simple Test Form (Remove after testing)</h4>
-                        <p>Use this simple form first to test if Netlify Forms is working:</p>
-                        <form name="hive-test" method="POST" data-netlify="true">
-                            <input type="text" name="test-name" placeholder="Your name" required style="margin: 5px; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" />
-                            <input type="email" name="test-email" placeholder="Your email" required style="margin: 5px; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" />
-                            <button type="submit" style="margin: 5px; padding: 8px 16px; background: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer;">Test Submit</button>
-                        </form>
-                    </div>
                 </div>
             </div>
         </section>
@@ -836,130 +793,12 @@
                     
                     <div class="family-story">
                         <h3>The Busby Family Hive</h3>
-                        <p>Hive & Co is run by George Busby and his four children (ages 13, 11, 7, and 5). This micro-business is designed to teach the kids about entrepreneurship, responsibility, and community service while providing valuable services to our Oxford neighbours.</p>
-                        <p>Every delivery is a chance to build connections, spread kindness, and show that business can be both profitable and purposeful. We're not just delivering products – we're delivering community spirit, one bicycle ride at a time.</p>
+                        <p>Hive & Co is a micro-business  designed to teach kids about entrepreneurship, responsibility, and community service while providing valuable services to our Oxford neighbours.</p>
+                        <p>Every delivery is a chance to build connections, spread kindness,</span></p>
                     </div>
                 </div>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Hive & Co. All rights reserved. | Family-run delivery services in Oxford, UK</p>
-        </div>
-    </footer>
-
-    <script>
-        // Debug logging for Netlify Forms
-        console.log('🐛 Netlify Forms Debug Mode Active');
-        
-        // Check if we're on Netlify
-        if (window.location.hostname.includes('netlify')) {
-            console.log('✅ Running on Netlify domain');
-        } else {
-            console.log('⚠️ Not on Netlify domain - forms may not work locally');
-        }
-
-        // Enhanced form submission handler with better debugging
-        document.querySelector('form[name="hive-registrations"]').addEventListener('submit', function(e) {
-            console.log('🚀 Form submission started');
-            
-            // Log all form data for debugging
-            const formData = new FormData(this);
-            console.log('📋 Form data being submitted:');
-            for (let [key, value] of formData.entries()) {
-                console.log(`  ${key}: ${value}`);
-            }
-            
-            const submitBtn = this.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            
-            // Show loading state
-            submitBtn.textContent = 'Joining the Hive... 🐝';
-            submitBtn.disabled = true;
-            
-            // For debugging - reset button after delay
-            setTimeout(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }, 3000);
-            
-            // Let form submit naturally to Netlify (don't preventDefault)
-            console.log('📤 Form submitted to Netlify');
-        });
-
-        // Test form handler
-        document.querySelector('form[name="hive-test"]').addEventListener('submit', function(e) {
-            console.log('🧪 Test form submitted');
-            
-            const formData = new FormData(this);
-            console.log('Test form data:');
-            for (let [key, value] of formData.entries()) {
-                console.log(`  ${key}: ${value}`);
-            }
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'start',
-                        inline: 'nearest'
-                    });
-                }
-            });
-        });
-
-        // Debug: Check for Netlify Forms detection
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🔍 Checking for Netlify Forms...');
-            
-            const forms = document.querySelectorAll('form[data-netlify]');
-            console.log(`📝 Found ${forms.length} forms with data-netlify attribute`);
-            
-            forms.forEach((form, index) => {
-                console.log(`Form ${index + 1}:`);
-                console.log(`  Name: ${form.getAttribute('name')}`);
-                console.log(`  Method: ${form.getAttribute('method')}`);
-                console.log(`  Action: ${form.getAttribute('action') || 'default'}`);
-                console.log(`  Fields: ${form.querySelectorAll('input, select, textarea').length}`);
-            });
-            
-            // Check if we're in Netlify's build environment
-            if (typeof window !== 'undefined') {
-                console.log('🌐 Running in browser');
-                console.log('🏠 Hostname:', window.location.hostname);
-                console.log('📄 Pathname:', window.location.pathname);
-            }
-        });
-
-        // Netlify Forms debugging helper
-        function debugNetlifyForms() {
-            console.log('🔧 Netlify Forms Debug Information:');
-            console.log('1. ✅ Forms should be detected during Netlify build process');
-            console.log('2. ✅ Check your deploy logs for "Forms detected" messages');
-            console.log('3. ✅ Visit Site Settings > Forms in your Netlify dashboard');
-            console.log('4. ✅ Form submissions appear in the Forms tab after submission');
-            console.log('5. ✅ Test the simple form first, then the complex one');
-            
-            // Check form setup
-            const mainForm = document.querySelector('form[name="hive-registrations"]');
-            const testForm = document.querySelector('form[name="hive-test"]');
-            
-            console.log('📋 Form Status:');
-            console.log(`  Main form found: ${!!mainForm}`);
-            console.log(`  Test form found: ${!!testForm}`);
-            console.log(`  Main form has data-netlify: ${!!mainForm?.hasAttribute('data-netlify')}`);
-            console.log(`  Test form has data-netlify: ${!!testForm?.hasAttribute('data-netlify')}`);
-        }
-
-        // Run debug on page load
-        setTimeout(debugNetlifyForms, 1000);
-    </script>
 </body>
 </html>
